@@ -113,20 +113,20 @@
         <div class="col-4">
             <div class="card_Product">
                 <img class="card-img-top" src="{{url_for('static', filename='image/'+Toy.image)}}" alt="Card image">
-                <div class="card-body">
+                <div class="d-flex flex-column card-body">
                   <p class="card-text">{{Toy.name}}</p>
                   <p class="card-text">{{Toy.description}}</p>
         
-                  <div class="d-flex" >
+                  <div class="d-flex">
                     <div class="mr-auto p-2">
                         <a href="#"> <!-- route error -->
-                            <button class="button_Icon">
+                            <button class="button_Icon mt-auto">
                                 <img src="../static/image/Icon/details.png" alt="details" style="height: 44px;width: 44px;">
                             </button>
                         </a>
                     </div>
                     <div class="p-2">
-                        <button class="button_Icon">
+                        <button class="button_Icon mt-auto">
                             <img src="../static/image/Icon/add-to-cart.png" alt="details" style="height: 44px;width: 44px;">
                         </button>
                     </div>
