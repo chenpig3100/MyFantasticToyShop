@@ -3,9 +3,9 @@
 {% block header %}
 <div id="navigationbar">
     <div id="companyname">
-        <img class="imgTitleIcon" src="../static/image/Icon/titleToy.png" alt="shopping">
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
         <a href="#">My Fantastic Toy Shop</a>
-        <img class="imgTitleIcon" src="../static/image/Icon/titleToy.png" alt="shopping">
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
     </div>
     <nav id="navigationmenu">
         <ul id="navigationlist">
@@ -32,7 +32,7 @@
     <div class="d-flex flex-row" style="margin-left: 10%;">
         <div class="p-2">
             <div style="height: 44px;width: 44px;">
-                <img src="../static/image/Icon/hot.png" alt="hot" style="height: 44px; width: 44px;">
+                <img src="{{url_for('static', filename='image/Icon/hot.png')}}" alt="hot" style="height: 44px; width: 44px;">
             </div>
         </div>
         <div class="p-2">
@@ -52,13 +52,13 @@
               </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="../static/image/Mario.jpg" class="d-block w-100" alt="Mario" height="480px" width="600px" style="border-radius: 4px;">
+                <img src="{{url_for('static', filename='image/Mario.jpg')}}" class="d-block w-100" alt="Mario" height="480px" width="600px" style="border-radius: 4px;">
               </div>
               <div class="carousel-item">
-                <img src="../static/image/sheep.jpg" class="d-block w-100" alt="sheep" height="480px" width="600px" style="border-radius: 4px;">
+                <img src="{{url_for('static', filename='image/sheep.jpg')}}" class="d-block w-100" alt="sheep" height="480px" width="600px" style="border-radius: 4px;">
               </div>
               <div class="carousel-item">
-                <img src="../static/image/chess.jpg" class="d-block w-100" alt="chess" height="480px" width="600px" style="border-radius: 4px;">
+                <img src="{{url_for('static', filename='image/chess.jpg')}}" class="d-block w-100" alt="chess" height="480px" width="600px" style="border-radius: 4px;">
               </div>
             </div>
            <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -78,7 +78,7 @@
     <div class="d-flex flex-row" style="margin-left: 10%;" id="products">
         <div class="p-2">
             <div style="height: 44px;width: 44px;">
-                <img src="../static/image/Icon/toys.png" alt="toys" style="height: 44px; width: 44px;">
+                <img src="{{url_for('static', filename='image/Icon/toys.png')}}" alt="toys" style="height: 44px; width: 44px;">
             </div>
         </div>
         <div class="p-2">
@@ -89,18 +89,21 @@
     </div>
 
     <div style="margin-left: 11.5%;">
-        <input type="text" placeholder="Seearch Toys..." style="width: 250px;">
-        <button type="button" style="background-color: transparent; border: none;">
-            <img src="../static/image/Icon/search.png" alt="search" style="height: 45px;width: 45px;">
+        <form action="{{url_for('main.search')}}">
+            <input class="form-control" type="search" placeholder="Seearch Toys..." style="width: 250px; display: inline;" name="search">
+            <button type="submit" style="background-color: transparent; border: none; display: inline;">
+            <img src="{{url_for('static', filename='image/Icon/search.png')}}" alt="search" style="height: 45px;width: 45px;">
         </button>
+        </form>
         <div class="dropdown" style="background-color: lightsalmon; display: inline;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="Categories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(255, 115, 60);">
                 Categories
             </button>
             <div class="dropdown-menu" aria-labelledby="Categories">
-              <a class="dropdown-item" href="#">Plushi</a>
-              <a class="dropdown-item" href="#">Collector</a>
-              <a class="dropdown-item" href="#">Boardgame</a>
+              <a class="dropdown-item" href="{{url_for('main.category', category=4)}}">All</a>
+              <a class="dropdown-item" href="{{url_for('main.category', category=1)}}">Plushie</a>
+              <a class="dropdown-item" href="{{url_for('main.category', category=2)}}">Collection</a>
+              <a class="dropdown-item" href="{{url_for('main.category', category=3)}}">Boardgame</a>
             </div>
         </div>
      </div> 
@@ -109,7 +112,7 @@
 <!-- Product -->
 <section>
     <div class="row" style="margin-left: 6%; margin-right: 6%;">
-        {% for Toy in toybox %}
+        {% for Toy in toys %}
         <div class="col-4">
             <div class="card_Product">
                 <img class="card-img-top" src="{{url_for('static', filename='image/'+Toy.image)}}" alt="Card image">
@@ -119,15 +122,15 @@
         
                   <div class="d-flex">
                     <div class="mr-auto p-2">
-                        <a href="#"> <!-- route error -->
+                        <a href="{{url_for('main.toydetail', toyid=Toy.id)}}">
                             <button class="button_Icon mt-auto">
-                                <img src="../static/image/Icon/details.png" alt="details" style="height: 44px;width: 44px;">
+                                <img src="{{url_for('static', filename='image/Icon/details.png')}}" alt="details" style="height: 44px;width: 44px;">
                             </button>
                         </a>
                     </div>
                     <div class="p-2">
                         <button class="button_Icon mt-auto">
-                            <img src="../static/image/Icon/add-to-cart.png" alt="details" style="height: 44px;width: 44px;">
+                            <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
                         </button>
                     </div>
                   </div>
@@ -143,7 +146,7 @@
     <div class="d-flex flex-row" style="margin-left: 10%;" id="contactUs">
         <div class="p-2">
             <div style="height: 44px;width: 44px;">
-                <img src="../static/image/Icon/mail.png" alt="contactUs" style="height: 44px; width: 44px;">
+                <img src="{{url_for('static', filename='image/Icon/mail.png')}}" alt="contactUs" style="height: 44px; width: 44px;">
             </div>
         </div>
         <div class="p-2">
@@ -188,7 +191,7 @@
     <div class="d-flex flex-row" style="margin-left: 10%;" id="aboutUs">
         <div class="p-2">
             <div style="height: 44px;width: 44px;">
-                <img src="../static/image/Icon/man.png" alt="contactUs" style="height: 44px; width: 44px;">
+                <img src="{{url_for('static', filename='image/Icon/man.png')}}" alt="contactUs" style="height: 44px; width: 44px;">
             </div>
         </div>
         <div class="p-2">
@@ -222,7 +225,7 @@
                 <a href="https://www.facebook.com/">
                     <button type="button" style="background-color: transparent;  border: none; background-size: auto; background-position: center;">
                         <div>
-                            <img src="../static/image/Icon/facebook.png", alt="facebook" style="height: 120px; width: 120px;">
+                            <img src="{{url_for('static', filename='image/Icon/facebook.png')}}", alt="facebook" style="height: 120px; width: 120px;">
                         </div>
                     </button>
                 </a>
@@ -232,7 +235,7 @@
                 <a href="https://www.instagram.com/">
                     <button type="button" style="background-color: transparent;  border: none; background-size: auto; background-position: center;">
                         <div>
-                            <img src="../static/image/Icon/instagram.png", alt="instagram" style="height: 120px; width: 120px;">
+                            <img src="{{url_for('static', filename='image/Icon/instagram.png')}}", alt="instagram" style="height: 120px; width: 120px;">
                         </div>
                     </button>
                 </a>                           
@@ -242,7 +245,7 @@
                 <a href="https://x.com/">
                     <button type="button" style="background-color: transparent;  border: none; background-size: auto; background-position: center;">
                         <div>
-                            <img src="../static/image/Icon/twitter.png", alt="twitter" style="height: 120px; width: 120px;">
+                            <img src="{{url_for('static', filename='image/Icon/twitter.png')}}", alt="twitter" style="height: 120px; width: 120px;">
                         </div>
                     </button>
                 </a>

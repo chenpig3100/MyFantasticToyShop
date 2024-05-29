@@ -10,8 +10,31 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
+    toys = Toy.query.order_by(Toy.name).all()
     # return render_template('Homepage.html', toybox = toys)
-    return render_template('Homepage.html')
+    return render_template('Homepage.html', toys = toys)
+
+@bp.route('/category/<int:category>')
+def category(category):
+    match category:
+        case 1:
+            toys = Toy.query.filter(Toy.category_id == category).all()
+        case 2:
+            toys = Toy.query.filter(Toy.category_id == category).all()
+        case 3:
+            toys = Toy.query.filter(Toy.category_id == category).all()
+        case 4:
+            toys = Toy.query.order_by(Toy.name).all()
+
+    return render_template('Homepage.html', toys = toys)
+    
+@bp.route('/toys')
+def search():
+    search = request.args.get('search')
+    search = '%{}%'.format(search)
+    toys = Toy.query.filter(Toy.name.like(search)).all()
+    return render_template('Homepage.html', toys = toys)
+
 
 # @bp.route('/ProductDetailPage/<int:toyid>/')
 # def toys(toyid):
@@ -21,7 +44,10 @@ def index():
 #             newToyBoxs.append(Toy)
 #     return render_template('ProductDetailPage.html', toybox = newToyBoxs)
 
-@bp.route('/toys/<int:toyid>/')
+@bp.route('/toy/<int:toyid>/')
 def toydetail(toyid):
-    return render_template('ProductDetailPage.html')
+    toys = Toy.query.all()
+    toy = Toy.query.filter(Toy.id == toyid).first()
+    print(toy.image)
+    return render_template('ProductDetailPage.html', toy = toy, toys = toys)
 

@@ -35,7 +35,6 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True) 
     toy_id = db.Column(db.Integer, db.ForeignKey('toys.id'), primary_key=True)
-    order_detail_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
     amount = db.Column(db.Integer, nullable=False)
     total_price = db.Column(db.Integer, nullable=False)
 
@@ -48,6 +47,7 @@ class Order(db.Model):
 class Order_detail(db.Model):
     __tablename__ = 'order_details'
     id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
     firstname = db.Column(db.String(64), nullable=False)
     lastname = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), nullable=False)
@@ -67,4 +67,18 @@ class Category(db.Model):
         str = "ID: {}, Name: {}\n"
         str = str.format(self.id, self.name)
         return super().__repr__()
+
+class ContactUs(db.Model):
+    __tablename__ = 'contactus'
+    id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(64))
+    lastname = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    comment = db.Column(db.String(500))
+
+    def __repr__(self):
+        str = "ID: {}, First Name: {}, Last Name: {}, Email: {}, Comment: {}\n"
+        str = str.format(self.id, self.firstname, self.lastname, self.email, self.comment)
+        return str
+
     

@@ -17,6 +17,8 @@ def create_app():
 
     from . import views
     app.register_blueprint(views.bp)
+    # from . import admin
+    # app.register_blueprint(admin.bp)
 
     return app
 
