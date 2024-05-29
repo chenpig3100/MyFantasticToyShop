@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div id="navigationbar">
+    <div id="companyname">
+        <img class="imgTitleIcon" src="../static/image/Icon/titleToy.png" alt="shopping">
+        <a href="#">My Fantastic Toy Shop</a>
+        <img class="imgTitleIcon" src="../static/image/Icon/titleToy.png" alt="shopping">
+    </div>
+    <nav id="navigationmenu">
+        <ul id="navigationlist">
+            <li>
+                <a href="./Homepage.html">
+                    <img style="height: 24px; width: 24px;" src="../static/image/Icon/back.png" alt="back">
+                    Back
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
+
+{% block main %}
+    <h1>Error</h1>
+    <p>
+        Sorry, but we cannot find what you are looking for.
+    </p>
+{% endblock %}
