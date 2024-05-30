@@ -157,26 +157,26 @@
     </div>
 
     <div class="container" style="width: 600px; margin-left: 12%;">
-        <form action="action_page.php">
+        <form methods="post" action="{{url_for('main.submit')}}">
             <div class="d-flex flex-row">
                 <div class="p-2">
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                    <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
                 </div>
                 <div class="p-2">
                     <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
                 </div>
             </div>
 
             <div class="d-flex flex-column">
                 <div class="p-2">
                     <label for="Email">Email:</label>
-                    <input type="email" id="Email" name="Email" placeholder="Your email.." style=" width: 505px; border: 1px solid #ccc; border-radius: 4px;">
+                    <input type="email" id="Email" name="Email" placeholder="Your email.." style=" width: 505px; border: 1px solid #ccc; border-radius: 4px;" required>
                 </div>
                 <div class="p-2">
                     <label for="comment">Comment:</label>
-                    <textarea id="comment" name="comment" placeholder="Write something.." style="height:200px"></textarea>
+                    <input type="text" id="comment" name="comment" placeholder="Write something.." style="height:200px" required>
                 </div>
                 <div class="p-2">
                     <input type="submit" value="Submit">

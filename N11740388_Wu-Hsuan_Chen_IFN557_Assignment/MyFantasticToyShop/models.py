@@ -66,7 +66,7 @@ class Category(db.Model):
     def __repr__(self):
         str = "ID: {}, Name: {}\n"
         str = str.format(self.id, self.name)
-        return super().__repr__()
+        return str
 
 class ContactUs(db.Model):
     __tablename__ = 'contactus'
