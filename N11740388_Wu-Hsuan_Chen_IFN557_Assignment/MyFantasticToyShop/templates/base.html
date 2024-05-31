@@ -28,16 +28,37 @@
         </div>
 
         <!-- Order Detail -->
+        
         <div id="order-detail" class="modal">
             <div class="content">
                 <h1 style="color: black; position:absolute; top:10px; right: 55px; ">
                     Order Detail
                 </h1>
-                <div style=" margin-top: 15%;">
-                    <img src="{{url_for('static', filename='image/Icon/box.png')}}" alt="empty-box" style="height: 16px; width: 16px; display: inline;">
-                    <p style="display: inline;">None toy inside!</p>
+                
+                
+                <div class="container">
+                    <div class="row">
+                        <div style="border: color(black);" class="col"><p>Toy Name</p></div>
+                        <div style="border: color(black);"class="col"><p>Toy Price</p></div>
+                        <div style="border: color(black);"class="col"><p>Total Price</p></div>
+                        <div style="border: color(black);"class="col-6"><p>Amount</p></div>
+                    </div>
+                    
+                    <div class="row">
+                      <div style="border: color(black);" class="col"></div>
+                      <div style="border: color(black);"class="col"></div>
+                      <div style="border: color(black);"class="col"></div>
+                      <div style="border: color(black);"class="col"> 
+                            <button type="button"action="" >-</button>
+                      </div>
+                      <div>
+                        <div style="border: color(black);"class="col"></div>
+                      <div style="border: color(black);"class="col">
+                        <button type="button" action="">+</button>
+                    </div>
                 </div>
                 
+               
                 <a href="#" style=" position: absolute; top: 10px; right: 10px;">
                     <img src=".{{url_for('static', filename='image/Icon/cancel.png')}}" alt="cancel" style="height: 24px;width: 24px;">  
                 </a>

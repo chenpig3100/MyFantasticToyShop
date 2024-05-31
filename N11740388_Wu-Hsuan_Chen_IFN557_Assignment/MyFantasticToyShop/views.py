@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, url_for, request, session, flash
-from .models import Toy
-
+from flask import Blueprint, render_template, url_for, request, session, flash, redirect
+from .models import Toy, Order_detail, Order
+from . import db
 # This data will eventually be stored in a database
 # HelloKitty = Toy(1, 'HelloKitty.jpg', 'HelloKitty', '$10', 'plushi','This adorable Hello Kitty plushie features soft, cuddly fabric and a cute pink bow. With her friendly smile, she is perfect for hugs, decoration, and gifting to Hello Kitty fans of all ages.')
 # IronMan = Toy(2, 'ironMan.jpg', 'IronMan', '$100', 'collection', 'Marvel at the ultimate Iron Man collection: suits, gadgets, and comics galore, embodying heroism, innovation, and technological prowess.')
@@ -51,10 +51,56 @@ def toydetail(toyid):
     print(toy.image)
     return render_template('ProductDetailPage.html', toy = toy, toys = toys)
 
-@bp.route('/checkout/', methods = ['POST', 'GET'])
-def checkout():
-    print('Firstname: {}\nLastname: {}\nEmail: {}\nAddress: {}'\
-        .format(request.values.get('firstname'), request.values.get('lastname'), request.values.get('email'), request.value.get('address')))
 
-    return render_template('Homepage.html')
+
+#orderDetail function (Ian)
+@bp.route('/checkout', methods=['POST','GET'])
+def checkout():
+    order_detail = Order_detail(order_id = request.values.get('order_id'), 
+                                firstname = request.values.get('firstname'), 
+                                lastname = request.values.get('lastname'),
+                                email = request.values.get('email'),
+                                address = request.values.get('address'))
+    
+    try:
+        db.session.add(order_detail)
+        db.session.commit()
+        flash('Thanks for order')
+        return redirect(url_for('main.index'))
+    
+    except:
+        flash('There was an issue completing your order')
+        return redirect(url_for('main.index'))    
+
+@bp.route('/check')
+def check():
+    return render_template('Orderdetail.html')
+
+# @bp.route('/add')
+# def ADD():
+#     checkSession()
+#     if toyid == None
+#         toy= Order()
+#         toy.id = order.id
+#         toy.amount =
+#         toy.toy_id = 
+#         toy.total_price =
+
+def checkSession():
+    if 'order_id' in session.keys():
+        order = db.session.scalar(db.select(Order).where(Order.id==session['order_id']))
+
+    else:
+        order = None
+
+    if order is None:
+        order = Order()
+        try:
+            db.session.add(order)
+            db.session.commit()
+            session['order_id']=order.id
+        except Exception as e:
+            print(e)
+            print('Fail')
+
 
