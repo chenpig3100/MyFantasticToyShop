@@ -11,8 +11,9 @@ bp = Blueprint('main', __name__)
 @bp.route('/')
 def index():
     toys = Toy.query.order_by(Toy.name).all()
+    order=checkSession()
     # return render_template('Homepage.html', toybox = toys)
-    return render_template('Homepage.html', toys = toys)
+    return render_template('Homepage.html', toys = toys, order = order)
 
 @bp.route('/category/<int:category>')
 def category(category):
