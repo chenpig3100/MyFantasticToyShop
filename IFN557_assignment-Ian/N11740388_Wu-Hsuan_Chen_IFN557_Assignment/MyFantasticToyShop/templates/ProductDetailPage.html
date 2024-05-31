@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+<div id="navigationbar">
+    <div id="companyname">
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
+        <a href="#">My Fantastic Toy Shop</a>
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
+    </div>
+    <nav id="navigationmenu">
+        <ul id="navigationlist">
+            <li>
+                <a href="{{url_for('main.index')}}">
+                    <img style="height: 24px; width: 24px;" src="{{url_for('static', filename='image/Icon/back.png')}}" alt="back">
+                    Back
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
+
+{% block main %}
+<section>
+    <div style="align-items: center; border-bottom: 4px solid white; margin-left: 10%; margin-right: 10%; margin-top: 3%;" id="productdetail">
+        <div class="d-flex flex-row">
+            <div class="p-2">
+                <img src="{{url_for('static', filename='image/Icon/info.png')}}" alt="info" style="height: 36px; width: 36px;">
+            </div>
+            <div class="p-2">
+                <div style="height: 50px; width: 300px; margin-left: -5%;">
+                    <h2 style="color: white;">Toy Detail:</h2>
+                </div>
+            </div> 
+        </div>
+
+        <div class="d-flex flex-column">
+            <div class="p-2" style="margin-top: -1%; width: 300px;">
+                <img src="{{url_for('static', filename='image/'+toy.image)}}" alt="toyImg" style=" width: 300px; height: 300px; border-radius: 4px; border: 4px solid white;">
+            </div>
+
+            <div class="p-2" style="margin-top: -1%;">
+                <h2 style="color:white; display: inline;">Name:</h2>
+                <p style="color: white; display: inline; margin-left: 1%;">{{toy.name}}</p>
+            </div>
+
+            <div class="p-2" style="margin-top: -1%;">
+                <h2 style="color:white; display: inline;">Price:</h2>
+                <p style="color: white; display: inline; margin-left: 1%;">${{toy.price}}</p>
+            </div>
+
+            <div class="p-2" style="margin-top: -1%;">
+                <h2 style="color:white; display: inline;">Category:</h2>
+                <p style="color: white; display: inline; margin-left: 1%;">{{toy.category_id.name}}</p>
+            </div>
+
+            <div class="p-2" style="margin-top: -1%;">
+                <h2 style="color:white; display: inline;">Description:</h2>
+                <p style="color: white; display: inline; margin-left: 1%;"><br>{{toy.description}}</p>
+            </div>
+
+            <div class="p-2">
+                <form action="{{url_for('main.add', toyid=toy.id)}}">
+                    <button style="background-color: rgb(255, 115, 60); width: 180px; height: 60px; border-radius: 30px; border-color: rgb(215, 95, 50); color: white;">
+                        Add In Cart!
+                        <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
+                    </button>
+                </form>
+            </div>
+        </div>  
+    </div>
+</section>
+
+<!-- Relative Product -->
+<section>
+    <div style="align-items: center; margin-left: 10%; margin-right: 10%;margin-top: 1%; margin-bottom: 5%;" id="relatedtoys">
+        <div class="d-flex flex-row">
+            <div class="p-2">
+                <img src="{{url_for('static', filename='image/Icon/related-toys.png')}}" alt="info" style="height: 36px; width: 36px;">
+            </div>
+            <div class="p-2">
+                <div style="height: 50px; width: 300px; margin-left: -5%;">
+                    <h2 style="color: white;">Related Toys:</h2>
+                </div>
+            </div> 
+        </div>
+
+        <div class="container" style="padding: 5px; background-color: rgb(185, 80, 25);">
+            <div class="scrolling-wrapper">
+
+                {% for Toy in toys %}
+                <a href="{{url_for('main.toydetail', toyid=Toy.id)}}"> <!-- route error -->
+                    <div class="card_Product_related">
+                        <img class="card-img-top" src="{{url_for('static', filename='image/'+Toy.image)}}" alt="Card name">
+                        <div class="card-body">
+                          <p class="card-text" style="color: black;">{{Toy.name}}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
