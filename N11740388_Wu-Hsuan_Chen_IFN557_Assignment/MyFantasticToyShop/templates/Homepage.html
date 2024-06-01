@@ -130,7 +130,7 @@
                     </div>
                     <div class="p-2">
                         <!-- Add function #Bryan -->
-                        <form action="">
+                        <form method="post" action="{{url_for('main.add', toyid=Toy.id)}}">
                             <button class="button_Icon mt-auto">
                                 <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
                             </button>
@@ -256,4 +256,89 @@
         </div>
     </div>
 </section>
+
+
+
+<div>
+    <!-- Cart button -->
+    <div class="float">
+        <a href="#order-detail">
+            <img src="{{url_for('static', filename='image/Icon/shopping-cart.png')}}" alt="Cart" style="height: 50px; width: 50px; margin-top: 15px;">
+        </a>
+        
+    </div>
+
+    <!-- Order Detail -->
+    <div id="order-detail" class="modal">
+        <div class="content">
+            <h1 style="color: black; position:absolute; top:10px; right: 55px; ">
+                Order Detail
+            </h1>
+
+            <!-- ORder list #Bryan -->
+            <div class="container">
+                <div class="row">
+                    <div style="border: color(black);" class="col">
+                        <p>Toy Name</p>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <p>Toy Price</p>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <p>Total Price</p>
+                    </div>
+                    <div style="border: color(black);"class="col-6">
+                        <p>Amount</p>
+                    </div>
+                </div>
+                
+                <!-- For loop -->
+                {% if orders %}
+                {% for order in orders %}
+                <div class="row">
+                    <div style="border: color(black);" class="col">
+                        <p>
+                            {{order.toy.name}}
+                        </p>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <p>
+                            ${{order.toy.price}}
+                        </p>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <P>
+                            {{order.total_price}}
+                        </P>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <form method="post" action="{{url_for('main.subtract', toyid=order.toy_id)}}">
+                            <button type="submit">-</button>
+                        </form> 
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <P>
+                            {{order.amount}}
+                        </P>
+                    </div>
+                    <div style="border: color(black);"class="col">
+                        <form method="post" action="{{url_for('main.add', toyid=order.toy_id)}}">
+                            <button type="submit">+</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>
+                    No toy inside cart.
+                </p>
+                {% endif %}
+            </div>
+            
+            <a href="#" style=" position: absolute; top: 10px; right: 10px;">
+                <img src=".{{url_for('static', filename='image/Icon/cancel.png')}}" alt="cancel" style="height: 24px;width: 24px;">  
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

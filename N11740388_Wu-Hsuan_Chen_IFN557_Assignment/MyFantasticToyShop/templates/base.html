@@ -18,68 +18,7 @@
         {% block main %}{% endblock %}
     </main>
 
-    <div>
-        <!-- Cart button -->
-        <div class="float">
-            <a href="#order-detail">
-                <img src="{{url_for('static', filename='image/Icon/shopping-cart.png')}}" alt="Cart" style="height: 50px; width: 50px; margin-top: 15px;">
-            </a>
-            
-        </div>
-
-        <!-- Order Detail -->
-        <div id="order-detail" class="modal">
-            <div class="content">
-                <h1 style="color: black; position:absolute; top:10px; right: 55px; ">
-                    Order Detail
-                </h1>
-
-                <!-- ORder list #Bryan -->
-                <div class="container">
-                    <div class="row">
-                        <div style="border: color(black);" class="col">
-                            <p>Toy Name</p>
-                        </div>
-                        <div style="border: color(black);"class="col">
-                            <p>Toy Price</p>
-                        </div>
-                        <div style="border: color(black);"class="col">
-                            <p>Total Price</p>
-                        </div>
-                        <div style="border: color(black);"class="col-6">
-                            <p>Amount</p>
-                        </div>
-                    </div>
-                    
-                    <!-- For loop -->
-                    <div class="row">
-                        <div style="border: color(black);" class="col">
-                            </div>
-                        <div style="border: color(black);"class="col">
-                            </div>
-                        <div style="border: color(black);"class="col">
-                            </div>
-                        <div style="border: color(black);"class="col">
-                            <form action="">
-                                <button type="button">-</button>
-                            </form> 
-                        </div>
-                        <div style="border: color(black);"class="col">
-                            </div>
-                        <div style="border: color(black);"class="col">
-                            <form action="">
-                                <button type="button">+</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="#" style=" position: absolute; top: 10px; right: 10px;">
-                    <img src=".{{url_for('static', filename='image/Icon/cancel.png')}}" alt="cancel" style="height: 24px;width: 24px;">  
-                </a>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Footer of the website -->
     <footer>
