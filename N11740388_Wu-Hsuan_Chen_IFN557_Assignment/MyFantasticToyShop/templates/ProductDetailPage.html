@@ -61,11 +61,13 @@
             </div>
 
             <div class="p-2">
-
-                <button style="background-color: rgb(255, 115, 60); width: 180px; height: 60px; border-radius: 30px; border-color: rgb(215, 95, 50); color: white;">
-                    Add In Cart!
-                    <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
-                </button>
+                <!-- Add function #Bryan -->
+                <form >
+                    <button style="background-color: rgb(255, 115, 60); width: 180px; height: 60px; border-radius: 30px; border-color: rgb(215, 95, 50); color: white;">
+                        Add In Cart!
+                        <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
+                    </button>
+                </form>
             </div>
         </div>  
     </div>
@@ -89,7 +91,7 @@
             <div class="scrolling-wrapper">
 
                 {% for Toy in toys %}
-                <a href="{{url_for('main.toydetail', toyid=Toy.id)}}"> <!-- route error -->
+                <a href="{{url_for('main.toydetail', toyid=Toy.id)}}">
                     <div class="card_Product_related">
                         <img class="card-img-top" src="{{url_for('static', filename='image/'+Toy.image)}}" alt="Card name">
                         <div class="card-body">

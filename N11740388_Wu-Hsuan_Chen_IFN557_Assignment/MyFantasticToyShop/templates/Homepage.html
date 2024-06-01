@@ -129,9 +129,12 @@
                         </a>
                     </div>
                     <div class="p-2">
-                        <button class="button_Icon mt-auto">
-                            <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
-                        </button>
+                        <!-- Add function #Bryan -->
+                        <form action="{{url_for('main.add', toyid = Toy.id)}}">
+                            <button class="button_Icon mt-auto">
+                                <img src="{{url_for('static', filename='image/Icon/add-to-cart.png')}}" alt="details" style="height: 44px;width: 44px;">
+                            </button>
+                        </form>  
                     </div>
                   </div>
                 </div>
