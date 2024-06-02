@@ -173,34 +173,6 @@ body{
             color: white;
         }
 
-        /*
-        CONTACT FORM BEGIN
-        input[type=text], input[type=email] {
-            width: 25%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type=submit] {
-            width: 25%;
-            background-color: rgb(221, 180, 40);
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type=submit]:hover {
-            background-color: #b30000;
-        }
-        */
-
         /* Style inputs with type="text", select elements and textareas */
         input[type=text], select, textarea {
         width: 100%; /* Full width */
@@ -300,7 +272,7 @@ body{
         .content {
             position: relative;
             background: white;
-            padding: 3em 6em;
+            padding: 3em 8em;
             border-radius: 4px;
         }
 
@@ -309,8 +281,10 @@ body{
         }
 
 
-
-          
-        
-
-
+        /* Order List */
+        .list {
+            border-color: transparent; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }

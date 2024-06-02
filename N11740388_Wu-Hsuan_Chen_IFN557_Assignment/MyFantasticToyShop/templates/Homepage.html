@@ -27,6 +27,22 @@
 {% endblock %}
 
 {% block main %}
+
+<!-- flash message -->
+<div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
 <!-- Hot-selling -->
 <section>        
     <div class="d-flex flex-row" style="margin-left: 10%;">
@@ -270,25 +286,25 @@
 
     <!-- Order Detail -->
     <div id="order-detail" class="modal">
-        <div class="content">
-            <h1 style="color: black; position:absolute; top:10px; right: 55px; ">
+        <div class="content" style=" width: 60em;">
+            <h2 style="color: black; position:absolute; top:10px; right: 12em; ">
                 Order Detail
-            </h1>
+            </h2>
 
             <!-- ORder list #Bryan -->
             <div class="container">
                 <div class="row">
-                    <div style="border: color(black);" class="col">
+                    <div class="col list">
                         <p>Toy Name</p>
                     </div>
-                    <div style="border: color(black);"class="col">
-                        <p>Toy Price</p>
+                    <div class="col list">
+                        <p>Price</p>
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list">
                         <p>Total Price</p>
                     </div>
-                    <div style="border: color(black);"class="col-6">
-                        <p>Amount</p>
+                    <div class="col-6 list">
+                        <p style="display: inline; align-items: center; justify-content: center;">Amount</p>
                     </div>
                 </div>
                 
@@ -296,47 +312,60 @@
                 {% if orders %}
                 {% for order in orders %}
                 <div class="row">
-                    <div style="border: color(black);" class="col">
+                    <div class="col list">
                         <p>
                             {{order.toy.name}}
                         </p>
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list">
                         <p>
                             ${{order.toy.price}}
                         </p>
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list">
                         <P>
-                            {{order.total_price}}
+                            ${{order.total_price}}
                         </P>
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list" style="height: 24px; width: 24px;">
                         <form method="post" action="{{url_for('main.subtract', toyid=order.toy_id)}}">
-                            <button type="submit">-</button>
+                            <button type="submit" style="border-color: transparent;">
+                                <img src="{{url_for('static', filename='image/Icon/minus.png')}}", alt="subtract" style="height: 24px; width: 24px;">
+                            </button>
                         </form> 
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list">
                         <P>
                             {{order.amount}}
                         </P>
                     </div>
-                    <div style="border: color(black);"class="col">
+                    <div class="col list" style="height: 24px; width: 24px;">
                         <form method="post" action="{{url_for('main.add', toyid=order.toy_id)}}">
-                            <button type="submit">+</button>
+                            <button type="submit" style="border-color: transparent;">
+                                <img src="{{url_for('static', filename='image/Icon/plus.png')}}", alt="plus" style="height: 24px; width: 24px;">
+                            </button>
                         </form>
                     </div>
                 </div>
                 {% endfor %}
                 {% else %}
-                <p>
+                <p class="list" style="color: red;">
                     No toy inside cart.
                 </p>
                 {% endif %}
-            </div>
+            </div>           
+
+            <a href="{{url_for('main.check')}}" style="position: absolute; bottom: 10px; right: 20px">
+                <button type="button" style="border-radius: 4px; background-color: rgb(255, 115, 60); border-color: black;border-width: 1px; height: 30px; width: 90px;">
+                    <p style="color: white;">
+                        Checkout!
+                    </p>
+                </button>
+            </a>
+
             
             <a href="#" style=" position: absolute; top: 10px; right: 10px;">
-                <img src=".{{url_for('static', filename='image/Icon/cancel.png')}}" alt="cancel" style="height: 24px;width: 24px;">  
+                <img src=".{{url_for('static', filename='image/Icon/cancel.png')}}" alt="cancel" style="height: 24px;width: 24px;"> 
             </a>
         </div>
     </div>

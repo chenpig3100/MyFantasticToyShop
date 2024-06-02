@@ -37,7 +37,6 @@ def toydetail(toyid):
     toys = Toy.query.order_by(Toy.name).all()
     category_alias = aliased(Category)
     toy = db.session.query(Toy.id, Toy.name.label('toy_name'), Toy.image, Toy.description,Toy.price, category_alias.name.label('category_name')).join(category_alias, Toy.category_id==category_alias.id).filter(Toy.id == toyid).first()
-
     orders = checkorder()
     return render_template('ProductDetailPage.html', toy = toy, toys = toys, orders = orders)
 
@@ -64,29 +63,41 @@ def submit():
 # checkout function #Bryan
 @bp.route('/checkout', methods=['POST','GET'])
 def checkout():
-    order_detail = Order_detail(order_id = request.values.get('order_id'), 
-                                firstname = request.values.get('firstname'), 
-                                lastname = request.values.get('lastname'),
-                                email = request.values.get('email'),
-                                address = request.values.get('address'))
+
+    # check order exist or not
+    if 'order_id' not in session:
+            flash('No active order found.')
+            return redirect(url_for('main.index'))
     
-    db.session.add(order_detail)
+    order_id = session.get('order_id')
+    order = Order.query.get(order_id)
+
+    if order is None:
+            flash('Order not found.')
+            return redirect(url_for('main.index'))
+    
+    # update order detail
+    order.firstname = request.values.get('firstname')
+    order.lastname = request.values.get('lastname')
+    order.email = request.values.get('email')
+    order.address = request.values.get('address')
 
     try:
         db.session.commit()
-        flash('Thanks for order')
-        return redirect(url_for('main.index'))
-    
-    except:
+        flash('Order updated successfully!')
+        order = createOrder()
+        toys = Toy.query.order_by(Toy.name).all()
+        return render_template('Homepage.html', toys = toys, orders = [])
+    except Exception as e:
         db.session.rollback()
-        flash('There was an issue completing your order')
-        return redirect(url_for('main.index')) 
+        flash(f'Error updating order: {e}')
+        return redirect(url_for('main.checkout'))
 
 
-# navigate to orderdetail page #Bryan 
+# navigate to orderdetail page
 @bp.route('/check')
 def check():
-    return render_template('Orderdetail.html')
+    return render_template('CheckOutPage.html')
 
 
 # Add function
@@ -100,17 +111,11 @@ def add(toyid):
         order = Order.query.get(order_id)
         if order is None:
             flash('Order not found.')
-            order = Order()
-            db.session.add(order)
-            db.session.flush()
-            session['order_id'] = order.id
+            order = createOrder()
             
     else:
         # If no order exists in session, create a new order
-        order = Order()
-        db.session.add(order)
-        db.session.flush() # Ensure the new order gets an ID before using it
-        session['order_id'] = order.id
+        order = createOrder()
 
     # Check if the toy is already in the order
     order_detail = Order_detail.query.filter_by(order_id=order.id, toy_id=toyid).first()
@@ -143,24 +148,34 @@ def subtract(toyid):
 
     if order_detail is None:
         flash('Toy not found in the order.')
-        return redirect(url_for('main.index'))
+        toys = Toy.query.order_by(Toy.name).all()
+        flash('Toy amount updated successfully!')
+        return render_template('Homepage.html', toys = toys, orders = [])
     
     if order_detail.amount > 1:
         order_detail.amount -= 1
         order_detail.total_price = order_detail.toy.price * order_detail.amount
 
+
     else:
         db.session.delete(order_detail)
-
+        orders = Order_detail.query.filter_by(order_id=order_detail.order_id)
+        if orders is None:
+            db.session.commit()
+            toys = Toy.query.order_by(Toy.name).all()
+            flash('Toy amount updated successfully!')
+            return render_template('Homepage.html', toys = toys, orders = [])
+  
     try:
         db.session.commit()
         flash('Toy amount updated successfully!')
+        
+
     except Exception as e:
         db.session.rollback()
         flash(f'Error updating toy amount: {e}')
 
     return redirect(url_for('main.index'))
-
 
 def checkorder():
     order = Order_detail.query.order_by(Order_detail.order_id.desc()).first()
@@ -169,3 +184,10 @@ def checkorder():
     else:
         orders = []
     return orders
+
+def createOrder():
+    order = Order()
+    db.session.add(order)
+    db.session.flush()
+    session['order_id'] = order.id
+    return order

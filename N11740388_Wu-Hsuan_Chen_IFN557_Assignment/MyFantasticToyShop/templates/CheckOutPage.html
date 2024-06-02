@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div id="navigationbar">
+    <div id="companyname">
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
+        <a href="#">My Fantastic Toy Shop</a>
+        <img class="imgTitleIcon" src="{{url_for('static', filename='image/Icon/titleToy.png')}}" alt="shopping">
+    </div>
+    <nav id="navigationmenu">
+        <ul id="navigationlist">
+            <li>
+                <a href="{{url_for('main.index')}}">
+                    <img style="height: 24px; width: 24px;" src="{{url_for('static', filename='image/Icon/back.png')}}" alt="back">
+                    Back
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="container col-md-6">
+    <h2>Insert Your Details:</h2>
+    
+    <form action="{{url_for('main.checkout')}}", methods="POST">
+       
+      <div class="form-group">
+        <label for="firstname">First name:</label>
+        <input type="text" class="form-control" id="firstname" placeholder="Enter first name" name="firstname">
+      </div>
+    
+      <div class="form-group">
+        <label for="lastname">Lastname:</label>
+        <input type="text" class="form-control" id="lastname" placeholder="Enter lastname" name="lastname">
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      </div>
+  
+      <div class="form-group">
+        <label for="address">Adress:</label>
+        <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+      </div>
+  
+      <button type="submit" class="btn btn-default" style="border-radius: 4px; background-color: rgb(255, 115, 60); border-color: black;border-width: 1px; height: 30px; width: 90px;">
+            <div class="list">
+                <p style="color: white;">
+                    Submit
+                </p>
+            </div>
+        </button>
+   
+    </form>
+  </div>
+{% endblock %}
